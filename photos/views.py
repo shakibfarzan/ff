@@ -26,8 +26,19 @@ class PhotoListCreateAPIView(generics.ListCreateAPIView):
         Photo.objects.create(name=name, category=category, src=src)
         return Response({"message": "Uploaded"})
     
-        
-        
+
+class PhotoUpdateAPIView(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer
+    lookup_field = 'pk'
+
+    # def patch(self, request, *args, **kwargs):
+    #     kwargs['partial'] = True
+    #     return self.update(request, *args, **kwargs)
+
+
         
 class PhotoDestroyAPIView(generics.DestroyAPIView):
     queryset = Photo.objects.all()
