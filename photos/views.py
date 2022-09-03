@@ -7,7 +7,6 @@ from .serializers import PhotoSerializer
 
 class PhotoListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = PhotoSerializer
-    authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
     def get_queryset(self):
@@ -29,21 +28,15 @@ class PhotoListCreateAPIView(generics.ListCreateAPIView):
 
 class PhotoUpdateAPIView(generics.UpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.TokenAuthentication]
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
     lookup_field = 'pk'
-
-    # def patch(self, request, *args, **kwargs):
-    #     kwargs['partial'] = True
-    #     return self.update(request, *args, **kwargs)
 
 
         
 class PhotoDestroyAPIView(generics.DestroyAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
-    authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_destroy(self, instance):

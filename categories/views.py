@@ -6,7 +6,6 @@ class CategoryListCreateAPIView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    authentication_classes = [authentication.TokenAuthentication]
     
     def perform_create(self, serializer):
         name = serializer.validated_data.get('name')
@@ -19,7 +18,6 @@ class CategoryListCreateAPIView(generics.ListCreateAPIView):
 
 class CategoryDetailAPIView(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    authentication_classes = [authentication.TokenAuthentication]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = 'slug'
@@ -27,7 +25,6 @@ class CategoryDetailAPIView(generics.RetrieveAPIView):
 
 class CategoryUpdateAPIView(generics.UpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.TokenAuthentication]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = 'pk'
@@ -43,7 +40,6 @@ class CategoryUpdateAPIView(generics.UpdateAPIView):
 
 class CategoryDestroyAPIView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.TokenAuthentication]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = 'pk'

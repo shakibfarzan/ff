@@ -25,7 +25,6 @@ class ContactFieldDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 # Bio Views
 class BioAPIView(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    authentication_classes = [authentication.TokenAuthentication]
     
     def get(self, request, *args, **kwargs):
         instance = Bio.objects.all().first()
