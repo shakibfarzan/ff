@@ -20,8 +20,6 @@ class PhotoListCreateAPIView(generics.ListCreateAPIView):
         src = request.data['src']
         name = request.data['name']
         category = Category.objects.get(pk=request.data['category'])
-        if name is None:
-            name = src['filename']
         Photo.objects.create(name=name, category=category, src=src)
         return Response({"message": "Uploaded"})
     
