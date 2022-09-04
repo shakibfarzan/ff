@@ -9,14 +9,12 @@ from about import serializers
 # Contact Fields View
 class ContactFieldListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    authentication_classes = [authentication.TokenAuthentication]
     queryset = ContactField.objects.all()
     serializer_class = ContactFieldSerializer
     
     
 class ContactFieldDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    authentication_classes = [authentication.TokenAuthentication]
     queryset = ContactField.objects.all()
     serializer_class = ContactFieldSerializer
     
