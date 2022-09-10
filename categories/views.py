@@ -49,9 +49,15 @@ class CategoryDestroyAPIView(generics.DestroyAPIView):
 
 
 class SubCategoryListCreateAPIView(generics.ListCreateAPIView):
-    queryset = SubCategory.objects.all()
     serializer_class = SubCategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        queryset = SubCategory.objects.all()
+        parent = self.request.query_params.get('parent')
+        if parent is not None:
+            queryset = SubCategory.objects.filter(parent_category=parent)
+        return queryset
     
     def perform_create(self, serializer):
         name = serializer.validated_data.get('name')
