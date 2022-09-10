@@ -1,7 +1,7 @@
 import os
 from rest_framework import generics, permissions, authentication
 from rest_framework.response import Response
-from categories.models import Category
+from categories.models import Category, SubCategory
 from .models import Photo
 from .serializers import PhotoSerializer
 
@@ -14,13 +14,17 @@ class PhotoListCreateAPIView(generics.ListCreateAPIView):
         slug = self.request.query_params.get('slug')
         if slug is not None:
             queryset = Photo.objects.filter(category__slug=slug)
+            sub = self.request.query_params.get('sub')
+            if sub is not None:
+                queryset = Photo.objects.filter(category__slug=slug, sub_category__slug=sub)
         return queryset
     
     def post(self, request, *args, **kwargs):
         src = request.data['src']
         name = request.data['name']
         category = Category.objects.get(pk=request.data['category'])
-        Photo.objects.create(name=name, category=category, src=src)
+        sub_category = SubCategory.objects.get(pk=request.data['sub_category'])
+        Photo.objects.create(name=name, category=category, src=src, sub_category=sub_category)
         return Response({"message": "Uploaded"})
     
 
